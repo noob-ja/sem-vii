@@ -2,7 +2,7 @@ import relation
 import numpy as np
 
 def negation(x):
-    return 1 - x
+    return 1 - np.array(x)
 
 def conjunction(x, y):
     return min(x, y)
@@ -55,14 +55,16 @@ def compositional_rule_of_inference(x, y, x_, implication_op=implication_kd):
 A_ = 0.8
 B = 0.6
 C = 0.7
-D = 0.3
+D = 0.5
 Truth = 0.7
-# which means that 1 - min(max(A,B),C) + min(D,I) = 0.7
+# which means that 1 - min(max(A,B),C) + min(max(A,B),C) * min(D,I) = 0.7
+# min(max(1-0.8, 0.6), 0.7) = min(0.6, 0.7) = 0.6
 print(min(max(1-A_,B),C))
-# 1 - 0.6 + min(0.3,I) = 0.7
-# min(0.3, I) = 0.7 - 0.4
-# min(0.3, I) = 0.3
-# Hence, I >= 0.3
+# 1 - 0.6 + 0.6 * min(0.5,I) = 0.7
+# 0.4 + 0.6 * min(0.5, I) = 0.7
+# 0.6 min(0.5, I) = 0.3
+# min(0.5, I) = 0.5
+# Hence, I >= 0.5; I = [0.5, 1.0]
 
 # Q3
 # a) t = min(old(x), tall(x))
@@ -74,6 +76,6 @@ print(min(max(1-A_,B),C))
 A = [.6, 1, .9]
 B = [.6, 1]
 A_ = [.6, .9, 1]
-print(compositional_rule_of_inference(A, B, A_, implication_op=implication_kd))
-print(compositional_rule_of_inference(A, B, A_, implication_op=implication_rbach))
-print(compositional_rule_of_inference(A, B, A_, implication_op=implication_luka))
+print(compositional_rule_of_inference(negation(A), B, negation(A_), implication_op=implication_kd))
+print(compositional_rule_of_inference(negation(A), B, negation(A_), implication_op=implication_rbach))
+print(compositional_rule_of_inference(negation(A), B, negation(A_), implication_op=implication_luka))
