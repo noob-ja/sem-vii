@@ -26,5 +26,6 @@ c3 = -0.5*x + 5
 c4 = 0.25
 c5 = -0.5*x + 6
 
+cx_x = intg(c1*x, (x,4,4.67)) + intg(c2*x, (x,4.67,9.33)) + intg(c3*x, (x,9.33,9.5)) + intg(c4*x, (x,9.5,11.5)) + intg(c5*x, (x,11.5,12))
 cx = intg(c1, (x,4,4.67)) + intg(c2, (x,4.67,9.33)) + intg(c3, (x,9.33,9.5)) + intg(c4, (x,9.5,11.5)) + intg(c5, (x,11.5,12))
-print(cx)
+print(cx_x / cx)

@@ -1,24 +1,39 @@
-class kb:
+class rules:
     def __init__(self):
         self.rules = []
-        self.aux_verb = ['is', 'am', 'are']
 
-    def add_rule(self, string):
-        newrule = dict()
-        idx = 0
-        while len(string)>0:
-            idx = string.find(' ')
-            if(idx < 0):
-                print(string)
-                break
-            else:
-                print(string[:idx])
-                string = string[idx+1:]
+    def addrule(self, input, output, weight=1, connection=1):
+        rule = {'input': input, 'output': output, 'weight': weight, 'connection': connection}
+        self.rules.append(rule)
 
-    def find_pair(self, strarr):
-        return False
+    def getrule(self, i=-1):
+        if i<0:                 return self.rules
+        elif i<len(self.rules): return self.rules[i]
+        else:                   return []
 
-string = "hello hello test test"
+class terms:
+    def __init__(self):
+        self.terms = []
 
-b = kb()
-b.add_rule(string)
+    def addterm(self, _name, _range):
+        self.terms.append(term(_name, _range))
+
+    def getterm(self, i=-1):
+        if i<0:                 return self.terms
+        elif i<len(self.terms): return self.terms[i]
+        else:                   return []
+
+class term:
+    def __init__(self, _name, _range):
+        self.name = _name
+        (self.min, self.max) = _range
+        self.mf = []
+
+    def addmf(self, _name, _type, _range):
+        mf = {'name': _name, 'type': _type, 'range': _range}
+        self.mf.append(mf)
+
+    def getmf(self, _mf=-1):
+        if _mf<0:                           return self.mf
+        elif _mf in range(len(self.mf)):    return self.mf[_mf]
+        else:                               return []
